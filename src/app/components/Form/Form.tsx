@@ -1,43 +1,46 @@
 import { fetchAIResponse } from "@/app/actions";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import OpenAI from "openai";
-import React from "react";
+import { env } from "process";
+import React, { KeyboardEventHandler, useRef } from "react";
 
 type Props = {};
 const Form = (props: Props) => {
-  const openai = new OpenAI();
+  const genai = new GoogleGenerativeAI(
+    "AIzaSyBVFD_WEoo_ZJSzd-cygHEFXERPj9PRfJo"
+  );
 
-  // const main = async (content: string) => {
-  //   try {
-  //     const completion = await openai.chat.completions.create({
-  //       model: "gpt-3.5-turbo",
-  //       temperature: 0.9,
-  //       max_tokens: 200,
-  //       messages: [
-  //         {
-  //           role: "user",
-  //           content: content,
-  //         },
-  //       ],
-  //     });
-  //     console.log(completion);
-  //   } catch (error: any) {
-  //     throw new Error("OpenAI Error: " + error.message);
-  //   }
-  // };
+  const model = genai.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const startChat = async (prompt: string) => {
+    try {
+      const chat = model.startChat({ history: [] });
+
+      const response = await chat.sendMessage(prompt);
+
+      if (!response) {
+        throw new Error("Something went wrong!");
+      }
+      console.log(response);
+      return response.response.text;
+    } catch (error: any) {
+      console.error(error?.message);
+    }
+  };
   return (
     <form
       action={async (formData: FormData) => {
-        "use server";
-        const message = formData.get("message") as string;
+        const message = formData.get("prompt");
+        await startChat(message as string);
       }}
-      className="flex gap-4 order-3 bg-anti-flash_white-200 justify-center  "
+      className="flex flex-col md:flex-row   gap-4 order-3 w-full bg-inherit mb-20   "
     >
-      <textarea
-        className="p-2 resize-none w-full bg-space_cadet-400  rounded-lg outline-none"
+      <input
+        type="text"
+        className=" w-3/4 border pl-2 pt-2 border-celestial_blue bg-celestial_blue-200 resize-none mx-auto rounded-lg outline-none text-anti-flash_white-900 "
         name="prompt"
         id=""
       />
-      <button type="submit">FO</button>
+      <input type="submit" hidden />
     </form>
   );
 };

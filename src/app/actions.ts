@@ -25,3 +25,4 @@ export async function fetchAIResponse(message: string) {
     console.error(error?.message || "");
   }
 }
+const signUpUser= async ()=>{}

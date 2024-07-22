@@ -2,6 +2,7 @@ import { Oswald } from "next/font/google";
 import Image from "next/image";
 import { RiRobot2Fill } from "react-icons/ri";
 import LearnMore from "./components/Buttons/LearnMoreButton";
+import Chatbot from "./components/Chatbot/Chatbot";
 import Form from "./components/Form/Form";
 import GeneratorPage from "./GeneratorPage";
 
@@ -9,8 +10,8 @@ const oswald = Oswald({ subsets: ["latin"], weight: ["400"] });
 export default function Home() {
   return (
     <>
-      <main className="grid grid-cols-landing_layout items-center  gap-8 pr-2  h-[92vh]">
-        <div className="order-2 h-96 bg-dark_pastel_green-100 sm:col-[2/3] sm:row-[1/-1] col-[1/-1] sm:order-1 sm:text-start text-center flex flex-col justify-around  ">
+      <main className="grid grid-cols-landing_layout items-center  gap-8 pr-2  h-[100vh]">
+        <div className="order-2 h-96 bg-payne_gray-300 rounded-lg md:col-[2/3] md:row-[1/-1] col-[1/-1] sm:order-1 sm:text-start text-center flex flex-col justify-around p-2  ">
           <h1
             className={`text-anti-flash_white sm:text-4xl  ${oswald.className} text-2xl`}
           >
@@ -28,14 +29,11 @@ export default function Home() {
           </span>
           <LearnMore />
         </div>
-        <picture className=" bg-celestial_blue-300 self-center sm:col-[3/4] col-[1/-1] border-dark_pastel_green-500 border justify-self-center ">
-          <RiRobot2Fill
-            size={350}
-            className="text-anti-flash_white object-cover sm:order-2 order-1 "
-          />
+        <picture className="size-64 md:size-96  self-center sm:col-[3/4] col-[1/-1]s  border justify-self-center ">
+          <RiRobot2Fill className="text-anti-flash_white w-full h-full object-cover sm:order-2 order-1 " />
         </picture>
       </main>
-      <GeneratorPage />
+      <Chatbot />
     </>
   );
 }

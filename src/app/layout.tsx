@@ -3,6 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header/Header";
 import Hamburger from "./components/Hamburger/Hamburger";
+import SettingsContext, {
+  SettingsContextProvider,
+} from "./store/SettingsContext";
+import AuthProvider from "./store/Auth/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-space_cadet-100`}>
-        <Header />
-        {children}
+        <AuthProvider>
+          <SettingsContextProvider>
+            <Header />
+            {children}
+          </SettingsContextProvider>
+        </AuthProvider>
       </body>
     </html>
   );

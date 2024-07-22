@@ -1,10 +1,10 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+
+    // Or if using `src` directory:
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -83,9 +83,18 @@ const config: Config = {
     },
     gridTemplateColumns: {
       landing_layout:
-        "minmax(0,10rem) minmax(200px,1fr) minmax(20%, 1fr) minmax(0,10rem)",
+        "minmax(0,10rem) minmax(400px,1fr) minmax(20%, 1fr) minmax(0,10rem)",
+      chatbot_grid: "minmax(10rem,30rem) minmax(20rem, 1fr)",
     },
   },
   plugins: [],
 };
-export default config;
+
+// const config: Config = {
+//   content: [
+//     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+//     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+//     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+//   ],
+//
+// }

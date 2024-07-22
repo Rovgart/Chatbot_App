@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Hamburger from "../Hamburger/Hamburger";
@@ -11,7 +12,7 @@ function Header() {
     setIsOpened((prev) => !prev);
   };
   return (
-    <header className="flex items-center justify-around">
+    <header className=" z-[999] flex items-center justify-around bg-payne_gray-100 border-2 border-anti-flash_white fixed top-0 w-full ">
       {/* Logo */}
       <picture className="size-20 "></picture>
       <nav className={`sm:block hidden text-anti-flash_white-700`}>
@@ -25,11 +26,12 @@ function Header() {
           <li>
             <a href="#">Contact</a>
           </li>
+          <Link href={"/signup"}>Sign Up</Link>
         </ul>
       </nav>
       <GiHamburgerMenu
         onClick={hamburgerHandler}
-        className="text-anti-flash_white text-4xl"
+        className="text-anti-flash_white text-4xl md:hidden block"
       />
       {opened && <Hamburger />}
     </header>
