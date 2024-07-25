@@ -1,12 +1,5 @@
-TODO: Change static to dynamic layout settings
-TODO: Optimize it, if necessary
-TODO: Select element should have background as current settings
-TODO: Think about theme implementation
-
-*TODO: Types insafety
-*TODO: JWT Auth, input disabled, if !token (Context Implementation)
-*TODO:  
-*TODO: Settings icon shouldn't be visible
-on big screens
-
+TODO: Redirecting after sucessfull submit
+TODO: Display a loader during validating
+TODO: User receives token after valid success
+TODO: Password strength mechanism
 

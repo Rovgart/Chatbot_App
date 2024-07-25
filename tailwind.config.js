@@ -85,6 +85,7 @@ module.exports = {
       landing_layout:
         "minmax(0,10rem) minmax(400px,1fr) minmax(20%, 1fr) minmax(0,10rem)",
       chatbot_grid: "minmax(10rem,30rem) minmax(20rem, 1fr)",
+      signup_layout: "250px 1fr",
     },
   },
   plugins: [],

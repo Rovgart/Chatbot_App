@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-space_cadet-100`}>
         <AuthProvider>
           <SettingsContextProvider>
-            <Header />
+            <Header auth={children} />
             {children}
           </SettingsContextProvider>
         </AuthProvider>

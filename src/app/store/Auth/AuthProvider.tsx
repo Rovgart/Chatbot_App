@@ -3,15 +3,20 @@ import axios from "axios";
 import React, {
   createContext,
   ReactNode,
+  useContext,
   useEffect,
   useLayoutEffect,
   useState,
 } from "react";
-type Props = {};
-const AuthContext = createContext(undefined);
+import { IoMdReturnLeft } from "react-icons/io";
+type AuthContextType = {
+  token: string | null;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+};
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 function AuthProvider({ children }: { children: ReactNode }) {
   // Storing access_token in state more secure than storing in localStorage and cookies
-  const [token, setToken] = useState<{ token: string }>();
+  const [token, setToken] = useState<string | null>(null);
   useEffect(() => {
     const fetchMe = async () => {
       try {
@@ -46,8 +51,14 @@ function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [token]);
   return (
-    <AuthContext.Provider value={{ token }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ token, setToken }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
-
+export const useAuth = () => {
+  const authCtx = useContext(AuthContext);
+  if (!authCtx) throw new Error("Outside of Provider");
+  return authCtx;
+};
 export default AuthProvider;

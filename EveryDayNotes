@@ -322,6 +322,8 @@ function Counter() {
   # // ...
 }
 
+# Making effects self-sufficient (samowystarczalny)
+
 
 # JWT
 

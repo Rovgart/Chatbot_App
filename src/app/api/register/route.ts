@@ -1,27 +1,55 @@
+import { sign } from "crypto";
+import { EncryptJWT } from "jose";
 import { NextRequest, NextResponse } from "next/server";
-import { connect, registerUserToDb } from "../../lib/lib";
+import { connect, encryptJWT, registerUserToDb } from "../../lib/lib";
 
 (async () => {
   connect();
 })();
 
 export const POST = async (req: NextRequest, res: NextResponse) => {
-  const { email, password } = req.body;
-  const registeredUser = await registerUserToDb(req.body);
-  if (!email || !password) {
+  if (req.method !== "POST") {
     return NextResponse.json(
-      {
-        message: "Missing email or password",
-      },
-      { status: 400 }
+      { message: "Method not allowed" },
+      { status: 405 }
     );
   }
-  if (registeredUser) {
+  try {
+    const { username, email, password, repeatedPassword, agreeTerms } =
+      await req.json();
+    console.log(email);
+    const user = {
+      username: username,
+      email: email,
+      password: password,
+      repeatedPassword: repeatedPassword,
+      agreeTerms: agreeTerms,
+    };
+    const registeredUser = await registerUserToDb(user);
+    if (!email || !password) {
+      return NextResponse.json(
+        {
+          message: "Missing email or password",
+        },
+        { status: 400 }
+      );
+    }
+    if (registeredUser) {
+      const expires = new Date(Date.now() + 10 * 1000);
+      const session = await encryptJWT({ email, expires });
+      console.log(session);
+      return NextResponse.json(
+        {
+          message: "Successfully registered",
+          token: session,
+        },
+        { status: 200 }
+      );
+    }
+  } catch (error: any) {
     return NextResponse.json(
-      {
-        message: "Successfully registered",
-      },
-      { status: 200 }
+      { message: "Invalid register format" },
+      { status: 500 }
     );
   }
 };

@@ -3,46 +3,58 @@ import bcrypt, { compare } from "bcrypt";
 import clientPromise from "../lib/mongodb";
 import { JWTPayload, jwtVerify, KeyLike, SignJWT } from "jose";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { sign } from "crypto";
 let db: Db;
 let client;
 let users: Collection;
 const alg = process.env.ALGORYTHM;
-const key = process.env.SECRET_KEY;
-
+const SECRET_KEY = process.env.SECRET_KEY;
+const key = new TextEncoder().encode(SECRET_KEY);
+if (!key) {
+  throw new Error("SECRET_KEY is not set");
+}
 export const connect = async () => {
-  if (db) return;
+  if (db && users) return;
   try {
     client = await clientPromise;
     db = client.db("ChatbotUI");
     users = db.collection("users");
   } catch (error: any) {
-    console.error(error?.message);
+    console.error(`Databse error connection: ${error?.message}`);
   }
 };
-export const registerUserToDb = async (formData: FormData) => {
+export const registerUserToDb = async (user: {
+  username: string;
+  email: string;
+  password: string;
+  repeatedPassword: string;
+  agreeTerms: boolean;
+}) => {
   try {
     await connect();
-    const user = {
-      email: formData.get("email"),
-      password: formData.get("password"),
-    };
-    const { email, password } = user;
+    const { username, email, password, repeatedPassword, agreeTerms } = user;
+    console.log(user);
     if (!email || !password) {
       throw new Error("Email or password are required ! ");
     }
     const existingUser = await users.findOne({ email: email });
 
     if (existingUser) throw new Error("User already exists");
-
+    if (password.trim() !== repeatedPassword.trim()) {
+      throw new Error("Passwords not match");
+    }
+    if (agreeTerms === null) {
+      throw new Error("Terms and conditions hasn't been accepted");
+    }
+    const hashedPassword = await bcrypt.hash(password, 12);
     const createdUser = {
+      username: username,
       email: email,
-      password: await bcrypt.hash(password as string, 12),
+      password: hashedPassword,
       createdAt: new Date(Date.now()),
     };
-    const insertedUser = await users.insertOne({
-      email: createdUser.email,
-      password: createdUser.password,
-    });
+    const insertedUser = await users.insertOne(createdUser);
     if (insertedUser) {
       console.log("User successfully created");
       return true;
@@ -52,10 +64,10 @@ export const registerUserToDb = async (formData: FormData) => {
   }
 };
 
-const encryptJWT = async (Payload: JWTPayload) => {
+export const encryptJWT = async (Payload: JWTPayload) => {
   const encrypted = await new SignJWT(Payload)
     .setExpirationTime("10 secs from now")
-    .setProtectedHeader({ alg: alg as string })
+    .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .sign(key);
 
@@ -70,14 +82,11 @@ const decryptJWT = async (input: string) => {
   return payload;
 };
 
-export const login = async (formData: FormData) => {
-  const user = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
+export const login = async (user: { email: string; password: string }) => {
+  const { email, password } = user;
   const userInDb = await users.findOne({ email: user.email });
 
-  if (user && compare(user.email, userInDb)) {
+  if (user && (await compare(password, userInDb.password))) {
     // Create session
     const { email } = user;
     const expires = new Date(Date.now() + 10 * 1000);

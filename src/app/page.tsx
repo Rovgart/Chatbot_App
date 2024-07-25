@@ -11,9 +11,9 @@ export default function Home() {
   return (
     <>
       <main className="grid grid-cols-landing_layout items-center  gap-8 pr-2  h-[100vh]">
-        <div className="order-2 h-96 bg-payne_gray-300 rounded-lg md:col-[2/3] md:row-[1/-1] col-[1/-1] sm:order-1 sm:text-start text-center flex flex-col justify-around p-2  ">
+        <div className="order-2 h-96 bg-space_cadet-400 shadow-space_cadet-900 shadow-lg  rounded-lg md:col-[2/3] md:row-[1/-1] col-[1/-1] sm:order-1 sm:text-start text-center flex flex-col justify-around p-2  ">
           <h1
-            className={`text-anti-flash_white sm:text-4xl  ${oswald.className} text-2xl`}
+            className={`text-anti-flash_white sm:text-4xl  ${oswald.className} text-2xl pl-4`}
           >
             Turn Your Ideas into Beautiful Images Instantly!
           </h1>
