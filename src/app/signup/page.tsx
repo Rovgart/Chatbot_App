@@ -12,7 +12,6 @@ import Checkbox from "../components/Checkbox/checkbox";
 import AuthProvider, { useAuth } from "../store/Auth/AuthProvider";
 
 export default function SignUp() {
-  const { token } = useAuth();
   return (
     <>
       <RootLayout>
@@ -31,11 +30,7 @@ export default function SignUp() {
                 res();
               }, 3000);
             });
-            const signUpValid = await signUpUser(user);
-            if (signUpValid) {
-              setToken(signUpValid.token);
-              redirect("/");
-            }
+            await signUpUser(user);
           }}
           className=" z-[999999]  h-screen flex gap-5 flex-col items-center  justify-center  text-dark_pastel_green-100  "
         >

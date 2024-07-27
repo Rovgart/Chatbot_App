@@ -12,15 +12,11 @@ function Hamburger(props: Props) {
             <p>Home</p>
           </Link>
         </li>
-        <li>
-          <Link href={"/About"}>
-            <p>About us</p>
-          </Link>
+        <li className="p-2.5 bg-space_cadet-600 rounded-full">
+          <Link href={"/login"}>Sign In</Link>
         </li>
-        <li>
-          <Link href={"/Contact"}>
-            <p>Contact</p>
-          </Link>
+        <li className="bg-space_cadet-500 rounded-full p-2.5">
+          <Link href={"/signup"}>Sign Up</Link>
         </li>
       </ul>
     </nav>

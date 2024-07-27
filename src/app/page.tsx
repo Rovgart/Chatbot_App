@@ -2,9 +2,6 @@ import { Oswald } from "next/font/google";
 import Image from "next/image";
 import { RiRobot2Fill } from "react-icons/ri";
 import LearnMore from "./components/Buttons/LearnMoreButton";
-import Chatbot from "./components/Chatbot/Chatbot";
-import Form from "./components/Form/Form";
-import GeneratorPage from "./GeneratorPage";
 
 const oswald = Oswald({ subsets: ["latin"], weight: ["400"] });
 export default function Home() {
@@ -33,7 +30,6 @@ export default function Home() {
           <RiRobot2Fill className="text-anti-flash_white w-full h-full object-cover sm:order-2 order-1 " />
         </picture>
       </main>
-      <Chatbot />
     </>
   );
 }

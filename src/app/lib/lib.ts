@@ -5,6 +5,7 @@ import { JWTPayload, jwtVerify, KeyLike, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { sign } from "crypto";
+import { createSession } from "../session";
 let db: Db;
 let client;
 let users: Collection;
@@ -14,6 +15,7 @@ const key = new TextEncoder().encode(SECRET_KEY);
 if (!key) {
   throw new Error("SECRET_KEY is not set");
 }
+
 export const connect = async () => {
   if (db && users) return;
   try {
@@ -34,7 +36,6 @@ export const registerUserToDb = async (user: {
   try {
     await connect();
     const { username, email, password, repeatedPassword, agreeTerms } = user;
-    console.log(user);
     if (!email || !password) {
       throw new Error("Email or password are required ! ");
     }
@@ -74,7 +75,7 @@ export const encryptJWT = async (Payload: JWTPayload) => {
   return encrypted;
 };
 
-const decryptJWT = async (input: string) => {
+export const decryptJWT = async (input: string) => {
   const options = {
     algorithms: ["HS256"],
   };
@@ -89,17 +90,10 @@ export const login = async (user: { email: string; password: string }) => {
   if (user && (await compare(password, userInDb.password))) {
     // Create session
     const { email } = user;
-    const expires = new Date(Date.now() + 10 * 1000);
-    const session = await encryptJWT({ email, expires });
-
-    cookies().set("session", session, { expires: expires, httpOnly: true });
-    return { token: session, user: user };
+    await createSession(email);
   }
 };
-
-const getSession = () => {
-  const session = cookies().get("session");
-  if (!session) return null;
-
-  // return decryptJWT()
+export const logout = async () => {
+  cookies().delete(cookie.name);
+  return redirect("/login");
 };

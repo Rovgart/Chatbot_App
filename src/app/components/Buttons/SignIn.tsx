@@ -5,9 +5,12 @@ type Props = {};
 
 const SignIn = (props: Props) => {
   return (
-    <li className="bg-space_cadet-700 rounded-full p-2.5 hover:cursor-pointer">
+    <button
+      type={"submit"}
+      className=" p-4 bg-space_cadet-700 rounded-full  hover:cursor-pointer text-anti-flash_white-900 text-2xl"
+    >
       Sign In
-    </li>
+    </button>
   );
 };
 

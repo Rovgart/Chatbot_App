@@ -1,3 +1,4 @@
+import { createSession } from "@/app/session";
 import { sign } from "crypto";
 import { EncryptJWT } from "jose";
 import { NextRequest, NextResponse } from "next/server";
@@ -35,8 +36,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       );
     }
     if (registeredUser) {
-      const expires = new Date(Date.now() + 10 * 1000);
-      const session = await encryptJWT({ email, expires });
+      const session = await createSession(email);
       console.log(session);
       return NextResponse.json(
         {
