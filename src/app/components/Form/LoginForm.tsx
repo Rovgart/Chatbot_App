@@ -1,3 +1,4 @@
+import { loginUser } from "@/app/actions";
 import { login } from "@/app/lib/lib";
 import React from "react";
 import SignIn from "../Buttons/SignIn";
@@ -14,7 +15,7 @@ const LoginForm = () => {
             email: formData.get("email"),
             password: formData.get("password"),
           };
-          await login(user);
+          await loginUser(user);
         }}
       >
         <div className="p-4 flex flex-col gap-2 text-2xl">

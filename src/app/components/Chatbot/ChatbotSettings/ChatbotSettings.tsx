@@ -1,5 +1,6 @@
 "use client";
 import { useSettings } from "@/app/store/SettingsContext";
+import { Switch } from "@mui/material";
 import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
 type Settings = {
   background: {
@@ -20,13 +21,13 @@ function ChatbotSettings({}) {
   };
   return (
     <main
-      className={`md:flex bg-red-500 md:flex-col hidden justify-around bg-${settings.background} text-anti-flash_white-500 h-full w-full sm:col-[1/2] row-[1] p-4 relative`}
+      className={`md:flex md:flex-col  hidden justify-around bg-${settings.background} text-anti-flash_white-500 h-full w-full sm:col-[1/2] row-[1] p-4 relative`}
     >
-      <h1 className="text-center text-2xl">Styles</h1>
-      <div className="flex flex-col gap-4">
-        <h3>Background Fill</h3>
+      <h1 className="text-center sm:text-4xl text-2xl">Styles</h1>
+      <div className="flex flex-col gap-4 pl-4">
+        <h3 className="">Background Fill</h3>
         <select
-          className={`bg-${settings.background} p-2`}
+          className={`bg-${settings.background} p-2 border-anti-flash_white-600 border`}
           onChange={handleChange}
         >
           <option value="celestial_blue-800">Darker</option>
@@ -34,18 +35,9 @@ function ChatbotSettings({}) {
           <option value="payne_gray-600">Lighter</option>
         </select>
       </div>
-      <div className="flex flex-col gap-3">
-        <span>Color Mode</span>
-        <select
-          name=""
-          id=""
-          value={settings.theme}
-          className="bg-space_cadet-900 p-2 text-space_cadet-100"
-          onChange={(e) => setSettings({ ...settings, theme: e.target.value })}
-        >
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-        </select>
+      <div className="pl-5 flex items-center gap-3">
+        <span>Dark Mode</span>
+        <Switch />
       </div>
     </main>
   );

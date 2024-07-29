@@ -45,12 +45,9 @@ export const signUpUser = async (credentials): SignUpResult => {
         agreeTerms: credentials.agreeTerms,
       }),
     });
-    if (!response.ok) {
-      throw new Error(
-        `Failed to register user: ${response.status}:${response.statusText}`
-      );
-    }
+
     const session = await response.json();
+    console.log(session);
     if (!session) {
       return null;
     }
@@ -61,3 +58,45 @@ export const signUpUser = async (credentials): SignUpResult => {
   }
 };
 export async function createUser(prevState: any, formData: FormData) {}
+
+export async function loginUser(data: { email: string; password: string }) {
+  try {
+    const response = await fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(
+        `Failed to login: ${response.status}:${response.statusText}`
+      );
+    }
+    const session = await response.json();
+    if (session) {
+      return session;
+    }
+  } catch (error: any) {
+    console.error(error?.message);
+  }
+}
+export const main = async () => {
+  const chatCompletion = await getGroqChatCompletion();
+  console.log(chatCompletion.choices[0]?.message?.content || "");
+};
+export async function getGroqChatCompletion() {
+  return groq.chat.completions.create({
+    messages: [
+      {
+        role: "user",
+        content: "Explain the importance of learning Quantum Physics",
+      },
+    ],
+    model: "llama3-8b-8192",
+  });
+}

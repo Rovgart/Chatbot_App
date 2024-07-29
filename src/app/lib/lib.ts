@@ -36,10 +36,12 @@ export const registerUserToDb = async (user: {
   try {
     await connect();
     const { username, email, password, repeatedPassword, agreeTerms } = user;
-    if (!email || !password) {
+    if (!username || !email || !password) {
       throw new Error("Email or password are required ! ");
     }
-    const existingUser = await users.findOne({ email: email });
+    const existingUser = await users.findOne({
+      email: email.trim().toLowerCase(),
+    });
 
     if (existingUser) throw new Error("User already exists");
     if (password.trim() !== repeatedPassword.trim()) {
@@ -56,12 +58,17 @@ export const registerUserToDb = async (user: {
       createdAt: new Date(Date.now()),
     };
     const insertedUser = await users.insertOne(createdUser);
-    if (insertedUser) {
+    if (insertedUser.insertedId) {
       console.log("User successfully created");
       return true;
+    } else {
+      throw new Error("User registration failed");
     }
   } catch (error: any) {
-    console.error(error?.message);
+    console.error("Registration error:", error?.message || error);
+    throw new Error(
+      error?.message || "An unexpected error occurred during registration."
+    );
   }
 };
 

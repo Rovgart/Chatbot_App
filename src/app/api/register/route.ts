@@ -20,12 +20,13 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       await req.json();
     console.log(email);
     const user = {
-      username: username,
-      email: email,
+      username: username.trim(),
+      email: email.trim().toLowerCase(),
       password: password,
       repeatedPassword: repeatedPassword,
       agreeTerms: agreeTerms,
     };
+    console.log(user);
     const registeredUser = await registerUserToDb(user);
     if (!email || !password) {
       return NextResponse.json(
@@ -46,6 +47,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         { status: 200 }
       );
     }
+    throw new Error("Failed registering");
   } catch (error: any) {
     return NextResponse.json(
       { message: "Invalid register format" },

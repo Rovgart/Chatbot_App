@@ -30,7 +30,7 @@ export default function SignUp() {
                 res();
               }, 3000);
             });
-            await signUpUser(user);
+            const isSignedUp = await signUpUser(user);
           }}
           className=" z-[999999]  h-screen flex gap-5 flex-col items-center  justify-center  text-dark_pastel_green-100  "
         >
