@@ -20,23 +20,38 @@ type Settings = {
 };
 function ChatbotSettings({}) {
   const { settings, setSettings } = useSettings();
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(`Background selected: ${e.target.value}`);
-    setSettings({ ...settings, background: e.target.value });
+
+  // Handle background change
+  const handleBackgroundChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedBackground = e.target.value;
+    console.log(`Background selected: ${selectedBackground}`);
+    setSettings({
+      ...settings,
+      background: {
+        ...settings.background,
+        default: selectedBackground,
+      },
+    });
   };
+
+  const handleThemeChange = () => {
+    const newTheme = settings.theme === "light" ? "dark" : "light";
+    setSettings({
+      ...settings,
+      theme: newTheme,
+    });
+  };
+  // Log settings change
   useEffect(() => {
     console.log("Settings updated", settings);
-    // Update the background color in the CSS
-  }, [settings.background]);
-  const backgroundStyle = {
-    backgroundColor: settings.background.default,
-    color: settings.theme === "light" ? "#000" : "#fff",
-    padding: "20px",
-    borderRadius: "8px",
-  };
+    // Optionally update CSS variables or styles here
+  }, [settings]);
+
+  const currentBackgroundColor = settings.background.default;
+
   return (
     <main
-      style={backgroundStyle}
+      style={{ backgroundColor: currentBackgroundColor }}
       className={`md:flex md:flex-col  hidden justify-around text-anti-flash_white-500 h-full w-full sm:col-[1/2] row-[1] p-4 relative`}
     >
       <h1 className="text-center sm:text-4xl text-2xl">Styles</h1>
@@ -44,11 +59,11 @@ function ChatbotSettings({}) {
         <h3 className="">Background Fill</h3>
         <select
           className={`bg-${settings.background} p-2 border-anti-flash_white-600 border`}
-          onChange={handleChange}
+          onChange={handleBackgroundChange}
         >
-          <option value="celestial_blue-800">Darker</option>
-          <option value="dark_pastel_green-900">Default</option>
-          <option value="payne_gray-600">Lighter</option>
+          <option value={settings.background.darker}>Darker</option>
+          <option value={settings.background.default}>Default</option>
+          <option value={settings.background.lighter}>Lighter</option>
         </select>
       </div>
       <div className="pl-5 flex items-center gap-3">

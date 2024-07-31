@@ -25,9 +25,9 @@ const SettingsContext = createContext<SettingsContextProps | undefined>(
 // Provider
 export function SettingsContextProvider({ children }: { children: ReactNode }) {
   const initialBackgrounds: backgrounds = {
-    default: "celestial_blue-200",
-    darker: "celestial_blue-200",
-    lighter: "dark_pastel_green-200",
+    default: "#00405c",
+    darker: "#121316",
+    lighter: "#c7eeff",
   };
 
   const [settings, setSettings] = useState<Settings>({

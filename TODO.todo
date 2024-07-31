@@ -6,9 +6,12 @@ TODO: Password strength mechanism
 TODO: Store user messages[] in db
 TODO: Fetching data when webpage fires
 TODO: Header displaying user info, when authorized
-TODO: 
+TODO: Correct cookie receiving 
+TODO: Sure that middleware works 
+TODO: Plan having a history of topics send to chatbot
+TODO: Fix SettingsContextProvider
 
 
 TODO: Research about holding images in mongodb
 TODO: Find out does I need websocket for chat streaming
-TODO: 
+TODO: Chatbot UI should be a use client component, distract Form from it

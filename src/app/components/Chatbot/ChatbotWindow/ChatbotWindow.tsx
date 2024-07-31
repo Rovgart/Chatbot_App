@@ -1,9 +1,9 @@
 "use client";
 import { useChatbot } from "@/app/store/chatbot-context/ChatbotProvider";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
+import { Audio } from "react-loader-spinner";
 import Form from "../../Form/Form";
 import ChatbotResponse from "../ChatbotResponse";
-
 type Props = {};
 function ChatbotWindow({}: Props) {
   const { messages } = useChatbot();
@@ -17,9 +17,11 @@ function ChatbotWindow({}: Props) {
       <ChatbotResponse
         chatbotMessage={"Can something unpredictable happen ?"}
       />
-      {messages.map((mess) => (
-        <ChatbotResponse chatbotMessage={mess.message} />
-      ))}
+      <Suspense fallback={<Audio />}>
+        {messages.map((mess) => (
+          <ChatbotResponse chatbotMessage={mess.message} />
+        ))}
+      </Suspense>
     </div>
   );
 }

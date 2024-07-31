@@ -1,9 +1,9 @@
+"use client";
 import { Oswald } from "next/font/google";
 import React, { useEffect } from "react";
 import { CiSettings } from "react-icons/ci";
 import Form from "../../Form/Form";
 import SettingsCloud from "../../SettingsCloud/SettingsCloud";
-import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { useSettings } from "@/app/store/SettingsContext";
 import ChatbotResponse from "../ChatbotResponse";
 import Groq from "groq-sdk";
@@ -17,8 +17,13 @@ async function ChatbotUI() {
     apiKey: "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",
     dangerouslyAllowBrowser: true,
   });
+  const { settings, setSettings } = useSettings();
+  const currentBgColor = settings.background.default;
   return (
-    <main className=" w-full md:col-[2/3]  relative  border border-slate-500 md:mx-auto overflow-hidden col-[1/-1] row-[1] rounded-lg">
+    <main
+      style={{ backgroundColor: currentBgColor }}
+      className={` w-full md:col-[2/3]  relative  border border-slate-500 md:mx-auto overflow-hidden col-[1/-1] row-[1] rounded-lg`}
+    >
       {/* Conversation chat */}
       <aside
         className={`md:mt-20 mt-20  md:p-14 p-2 relative flex  flex-col sm:h-full  justify-between h-full`}
