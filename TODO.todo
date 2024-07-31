@@ -3,3 +3,12 @@ TODO: Display a loader during validating
 TODO: User receives token after valid success
 TODO: Password strength mechanism
 
+TODO: Store user messages[] in db
+TODO: Fetching data when webpage fires
+TODO: Header displaying user info, when authorized
+TODO: 
+
+
+TODO: Research about holding images in mongodb
+TODO: Find out does I need websocket for chat streaming
+TODO: 

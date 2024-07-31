@@ -6,12 +6,14 @@ const SubmitButton = ({
   value,
   className,
   hoverColor,
+  onClick,
 }: {
   value: string;
   className?: string;
   hoverColor?: string;
+  onClick?: () => void;
 }) => {
-const { pending } = useFormStatus();
+  const { pending } = useFormStatus();
   return (
     <button
       className={`${className} p-2 rounded-lg hover:bg-${hoverColor}-100 ${
@@ -19,6 +21,7 @@ const { pending } = useFormStatus();
       }`}
       type="submit"
       disabled={pending}
+      onClick={onClick}
     >
       {pending ? "Sending..." : value}
     </button>

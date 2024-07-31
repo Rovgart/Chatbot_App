@@ -7,6 +7,8 @@ import SettingsContext, {
   SettingsContextProvider,
 } from "./store/SettingsContext";
 import AuthProvider from "./store/Auth/AuthProvider";
+import { useLayoutEffect } from "react";
+import { getUserData } from "./actions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   modal,
 }: Readonly<{

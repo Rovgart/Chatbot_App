@@ -10,7 +10,6 @@ import Image from "next/image";
 import { TbMessageChatbot } from "react-icons/tb";
 import Checkbox from "../components/Checkbox/checkbox";
 import AuthProvider, { useAuth } from "../store/Auth/AuthProvider";
-
 export default function SignUp() {
   return (
     <>
@@ -30,7 +29,11 @@ export default function SignUp() {
                 res();
               }, 3000);
             });
-            const isSignedUp = await signUpUser(user);
+            const signUpUserValid = await signUpUser(user);
+            if (signUpUserValid) {
+              // setToken(signUpUserValid);
+              redirect("/Chatbot");
+            }
           }}
           className=" z-[999999]  h-screen flex gap-5 flex-col items-center  justify-center  text-dark_pastel_green-100  "
         >
@@ -55,7 +58,8 @@ export default function SignUp() {
                 Username
               </label>
               <InputField
-                nm="username"
+                nameProp="username"
+                idProp="username"
                 type="text"
                 className=" p-1.5 outline-none text-anti-flash_white-100 "
               />
@@ -66,9 +70,10 @@ export default function SignUp() {
                 Email
               </label>
               <InputField
-                nm="email"
+                nameProp="email"
                 type="email"
                 className=" p-1.5 outline-none text-anti-flash_white-100 "
+                idProp="email"
               />
               <label
                 className="text-black md:text-sm text-start text-lg uppercase"
@@ -77,9 +82,10 @@ export default function SignUp() {
                 Password
               </label>
               <InputField
-                nm="password"
+                nameProp="password"
                 type="password"
                 className=" p-1.5 outline-none text-anti-flash_white-100 "
+                idProp="password"
               />
               <label
                 className="text-black text-start md:text-sm text-lg uppercase"
@@ -88,15 +94,16 @@ export default function SignUp() {
                 Repeat Password
               </label>
               <InputField
-                nm="repeatedPassword"
+                nameProp="repeatedPassword"
                 type="password"
                 className="p-1.5 outline-none"
+                idProp="repeatedPassword"
               />
               <Checkbox isCheckedProp={false} />
               <SubmitButton
                 hoverColor="dark_pastel_green"
                 className="bg-space_cadet text-lg text-anti-flash_white-900 p-2.5 w-[220px] sm:w-auto"
-                value="Sign Up"
+                value="SignUp"
               />
             </div>
           </fieldset>

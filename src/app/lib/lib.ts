@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { sign } from "crypto";
 import { createSession } from "../session";
+import Groq from "groq-sdk";
 let db: Db;
 let client;
 let users: Collection;
@@ -91,16 +92,45 @@ export const decryptJWT = async (input: string) => {
 };
 
 export const login = async (user: { email: string; password: string }) => {
+  await connect();
   const { email, password } = user;
+  console.log(email, password);
   const userInDb = await users.findOne({ email: user.email });
-
-  if (user && (await compare(password, userInDb.password))) {
+  if (!userInDb) {
+    return null;
+  }
+  console.log(userInDb.password);
+  if (userInDb && (await compare(password, userInDb.password))) {
     // Create session
     const { email } = user;
-    await createSession(email);
+    console.log(email);
+    const createdSession = await createSession(email);
+    console.log(createdSession);
+    return { access_token: createSession };
   }
 };
 export const logout = async () => {
   cookies().delete(cookie.name);
   return redirect("/login");
 };
+export async function main(message: string) {
+  const groq = new Groq({
+    apiKey: "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",
+  });
+  try {
+    const completion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: "user",
+          content: message,
+        },
+      ],
+      model: "llama3-70b-8192",
+    });
+    const chatResult = (await completion.choices[0]?.message?.content) || "";
+    console.log(chatResult);
+    return chatResult;
+  } catch (error: any) {
+    console.error(error?.message);
+  }
+}

@@ -22,22 +22,26 @@ const SettingsContext = createContext<SettingsContextProps | undefined>(
 );
 
 // Provider
+// Provider
 export function SettingsContextProvider({ children }: { children: ReactNode }) {
-  const backgrounds = {
-    default: "space_cadet-100",
+  const initialBackgrounds: backgrounds = {
+    default: "celestial_blue-200",
     darker: "celestial_blue-200",
     lighter: "dark_pastel_green-200",
   };
-  const { darker, lighter } = backgrounds;
+
   const [settings, setSettings] = useState<Settings>({
-    background: "celestial_blue-200",
+    background: initialBackgrounds,
+    theme: "light",
   });
+
   return (
     <SettingsContext.Provider value={{ settings, setSettings }}>
       {children}
     </SettingsContext.Provider>
   );
 }
+
 export const useSettings = () => {
   const ctx = useContext(SettingsContext);
   if (!ctx) {

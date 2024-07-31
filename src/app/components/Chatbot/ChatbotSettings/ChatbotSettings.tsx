@@ -1,7 +1,12 @@
 "use client";
 import { useSettings } from "@/app/store/SettingsContext";
 import { Switch } from "@mui/material";
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import React, {
+  ChangeEvent,
+  ChangeEventHandler,
+  useEffect,
+  useState,
+} from "react";
 type Settings = {
   background: {
     lighter: string;
@@ -19,9 +24,20 @@ function ChatbotSettings({}) {
     console.log(`Background selected: ${e.target.value}`);
     setSettings({ ...settings, background: e.target.value });
   };
+  useEffect(() => {
+    console.log("Settings updated", settings);
+    // Update the background color in the CSS
+  }, [settings.background]);
+  const backgroundStyle = {
+    backgroundColor: settings.background.default,
+    color: settings.theme === "light" ? "#000" : "#fff",
+    padding: "20px",
+    borderRadius: "8px",
+  };
   return (
     <main
-      className={`md:flex md:flex-col  hidden justify-around bg-${settings.background} text-anti-flash_white-500 h-full w-full sm:col-[1/2] row-[1] p-4 relative`}
+      style={backgroundStyle}
+      className={`md:flex md:flex-col  hidden justify-around text-anti-flash_white-500 h-full w-full sm:col-[1/2] row-[1] p-4 relative`}
     >
       <h1 className="text-center sm:text-4xl text-2xl">Styles</h1>
       <div className="flex flex-col gap-4 pl-4">

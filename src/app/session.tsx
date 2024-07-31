@@ -17,7 +17,7 @@ export const createSession = async (email: string) => {
     ...cookie.options,
     expires,
   });
-  redirect("/");
+  return session;
 };
 
 // This function verifies if current user has session

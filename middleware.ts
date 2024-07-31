@@ -25,6 +25,7 @@ export default async function middleware(req: NextRequest) {
       return Response.redirect(new URL("/login", req.url));
     }
   }
+  const cookies = req.cookies.get("token");
 }
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image).*)"],

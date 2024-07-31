@@ -39,18 +39,20 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     if (registeredUser) {
       const session = await createSession(email);
       console.log(session);
-      return NextResponse.json(
-        {
-          message: "Successfully registered",
-          token: session,
-        },
-        { status: 200 }
-      );
+      if (session) {
+        return NextResponse.json(
+          {
+            message: "Successfully registered",
+            token: session,
+          },
+          { status: 200 }
+        );
+      }
     }
-    throw new Error("Failed registering");
   } catch (error: any) {
+    console.error("Error in POST/api/register", error?.message);
     return NextResponse.json(
-      { message: "Invalid register format" },
+      { message: `Error in POST:api/register: ${error?.message} ` },
       { status: 500 }
     );
   }
