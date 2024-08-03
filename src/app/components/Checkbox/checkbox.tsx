@@ -1,9 +1,7 @@
 "use client";
-import React, { FormEvent, useEffect, useState } from "react";
+import React from "react";
 
-type Props = {};
-
-function Checkbox({ isCheckedProp }: { isCheckedProp: boolean }) {
+function Checkbox() {
   return (
     <div className="flex items-center gap-4">
       <input required type="checkbox" name="agreeTerms" />

@@ -1,25 +1,28 @@
 "use client";
-import SignUp from "@/app/signup/page";
-import { useAuth } from "@/app/store/Auth/AuthProvider";
 import Link from "next/link";
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import SignIn from "../Buttons/SignIn";
-import Hamburger from "../Hamburger/Hamburger";
-
-function Header({ auth }: { auth: string }) {
+import MobileMenu from "../MobileMenu/MobileMenu";
+import ChatbotLogo from "../../../../assets/logo.png";
+import Image from "next/image";
+function Header() {
   const [opened, setIsOpened] = useState(false);
   const hamburgerHandler = () => {
     setIsOpened((prev) => !prev);
   };
-  const { token } = useAuth();
-  console.log(token);
+
   return (
     <>
-      <header className=" z-[999] flex items-center justify-around bg-payne_gray-100 border-2 shadow shadow-anti-flash_white fixed top-0 w-full h-[8vh] ">
+      <header className=" z-[999] p-4  flex items-center justify-around bg-payne_gray-100   fixed top-0 w-full h-[12vh]">
         {/* Logo */}
-        <picture className="size-20 "></picture>
-        <nav className={`sm:block hidden text-anti-flash_white-700`}>
+        <picture className=" h-full flex items-center  ">
+          <Image
+            className="w-full h-full object-cover"
+            src={ChatbotLogo}
+            alt="logo"
+          />
+        </picture>
+        <nav className={`md:block hidden text-anti-flash_white-700`}>
           {
             /* token ? <User> : */
             <ul className="flex items-center gap-4 ">
@@ -45,7 +48,7 @@ function Header({ auth }: { auth: string }) {
           onClick={hamburgerHandler}
           className="text-anti-flash_white text-4xl md:hidden block"
         />
-        {opened && <Hamburger />}
+        {opened && <MobileMenu />}
       </header>
     </>
   );

@@ -19,7 +19,6 @@ jest.mock("next/navigation", () => ({
 describe("SignUp Form", () => {
   test("should render the signup form with all fields", () => {
     render(<SignUp />);
-
     // Check for form fields
     expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();

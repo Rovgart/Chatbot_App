@@ -106,7 +106,7 @@ export const login = async (user: { email: string; password: string }) => {
     console.log(email);
     const createdSession = await createSession(email);
     console.log(createdSession);
-    return { access_token: createSession };
+    return { access_token: createdSession };
   }
 };
 export const logout = async () => {

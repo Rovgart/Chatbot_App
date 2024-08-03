@@ -1,9 +1,5 @@
-import { kStringMaxLength } from "buffer";
 import Groq from "groq-sdk";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import React from "react";
-import { SignUpResult, User } from "../../types/types";
+import { SignUpResult } from "../../types/types";
 
 type Props = {};
 const groq = new Groq({

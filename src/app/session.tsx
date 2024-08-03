@@ -33,3 +33,8 @@ export const deleteSession = async () => {
   cookies().delete(cookie.name);
   redirect("/login");
 };
+
+export const logout = async () => {
+  cookies().delete(cookie.name);
+  return redirect("/login");
+};

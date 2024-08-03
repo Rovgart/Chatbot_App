@@ -10,6 +10,7 @@ import Image from "next/image";
 import { TbMessageChatbot } from "react-icons/tb";
 import Checkbox from "../components/Checkbox/checkbox";
 import AuthProvider, { useAuth } from "../store/Auth/AuthProvider";
+import { cookies } from "next/headers";
 export default function SignUp() {
   return (
     <>
@@ -32,6 +33,7 @@ export default function SignUp() {
             const signUpUserValid = await signUpUser(user);
             if (signUpUserValid) {
               // setToken(signUpUserValid);
+              cookies().set("token", signUpUserValid?.token);
               redirect("/Chatbot");
             }
           }}

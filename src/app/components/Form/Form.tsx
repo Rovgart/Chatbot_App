@@ -1,14 +1,11 @@
 "use client";
 import { getChatbotResponse } from "@/app/actions";
 import { useChatbot } from "@/app/store/chatbot-context/ChatbotProvider";
-import { revalidatePath } from "next/cache";
-import React, { KeyboardEventHandler, useRef } from "react";
+import React, { FormEvent, FormEventHandler } from "react";
 import SubmitButton from "../Buttons/SubmitButton";
-import InputField from "../TextFields/InputField";
-type Props = {};
-const Form = (props: Props) => {
-  const { message, setMessages } = useChatbot();
-  const handleSubmit = async (e) => {
+const Form = () => {
+  const { setMessages } = useChatbot();
+  const handleSubmit = async (e: FormEventHandler<HTMLFormElement>) => {
     e.preventDefault();
     await new Promise<void>((resolve) => {
       setTimeout(() => resolve(), 1500);
@@ -25,7 +22,7 @@ const Form = (props: Props) => {
     >
       <input
         type="text"
-        className=" w-full border p-2 outline-dashed bg-celestial_blue-200 resize-none mx-auto rounded-lg outline-none text-anti-flash_white-900 "
+        className=" w-full border p-2 outline-dashed  resize-none mx-auto rounded-lg outline-none "
         name="prompt"
         id=""
       />

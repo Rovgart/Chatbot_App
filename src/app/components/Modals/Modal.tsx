@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { ReactNode, ReactDOM } from "react";
+import React, { ReactNode } from "react";
 import { IoMdClose } from "react-icons/io";
 
 function Backdrop() {

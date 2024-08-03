@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-function SignUpForm({}: Props) {
+function SignUpForm() {
   return (
     <>
       <fieldset>

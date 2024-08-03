@@ -10,7 +10,7 @@ function ChatbotResponse({ chatbotMessage }: ChatbotResponseProps) {
       <picture className="size-20 rounded-full border p-1.5 border-anti-flash_white overflow-hidden bg-space_cadet-600">
         <RiRobot2Line className=" h-full w-full text-anti-flash_white-900  " />
       </picture>
-      <span className="text-anti-flash_white-900 w-2/3"> {chatbotMessage}</span>
+      <span className=" w-2/3"> {chatbotMessage}</span>
     </div>
   );
 }

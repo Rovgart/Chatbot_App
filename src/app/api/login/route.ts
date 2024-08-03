@@ -1,7 +1,6 @@
 import { login } from "@/app/lib/lib";
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-export const POST = async (req: NextRequest, res: NextResponse) => {
+export const POST = async (req: NextRequest) => {
   try {
     if (req.method !== "POST") {
       return NextResponse.json(
@@ -11,7 +10,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     }
 
     const { email, password } = await req.json();
-    console.log(email, password);
     if (!email || !password) {
       return NextResponse.json(
         { message: "Please insert email or password" },
@@ -33,10 +31,10 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         { status: 401 }
       );
     }
-    cookies().set("token", loggedUser?.access_token);
     return NextResponse.json(
       {
         message: "Logged in successfully",
+        token: loggedUser?.access_token,
       },
       { status: 200 }
     );

@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-function LearnMore({}: Props) {
+function LearnMore() {
   return (
     <>
       <button

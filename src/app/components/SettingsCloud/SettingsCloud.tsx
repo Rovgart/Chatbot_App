@@ -1,11 +1,9 @@
+"use client";
 import React from "react";
-import { HexColorInput, HexColorPicker } from "react-colorful";
 import { IoMdClose } from "react-icons/io";
 import { FaRegMoon } from "react-icons/fa6";
-import { FaMoon } from "react-icons/fa6";
-type Props = {};
 
-function SettingsCloud({}: Props) {
+function SettingsCloud() {
   return (
     <div className="w-[340px] hidden rounded-md h-[40vh] justify-start p-2 bg-anti-flash_white-900  flex-col gap-6 absolute top-0 ">
       <IoMdClose className="text-3xl" />

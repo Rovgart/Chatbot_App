@@ -1,6 +1,7 @@
 import { createSession } from "@/app/session";
 import { sign } from "crypto";
 import { EncryptJWT } from "jose";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { connect, encryptJWT, registerUserToDb } from "../../lib/lib";
 
@@ -40,6 +41,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       const session = await createSession(email);
       console.log(session);
       if (session) {
+        cookies().set("token", session);
         return NextResponse.json(
           {
             message: "Successfully registered",
