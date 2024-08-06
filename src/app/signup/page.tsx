@@ -8,7 +8,7 @@ import RootLayout from "../layout";
 import { login } from "../lib/lib";
 import Image from "next/image";
 import { TbMessageChatbot } from "react-icons/tb";
-import Checkbox from "../components/Checkbox/checkbox";
+import Checkbox from "../components/Checkbox/Checkbox";
 import AuthProvider, { useAuth } from "../store/Auth/AuthProvider";
 import { cookies } from "next/headers";
 export default function SignUp() {

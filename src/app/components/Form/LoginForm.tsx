@@ -9,7 +9,7 @@ import InputField from "../TextFields/InputField";
 const LoginForm = () => {
   return (
     <>
-      <fieldset className="h-full w-3/4 flex flex-col mx-auto gap-11 border border-sky-500 text-white">
+      <fieldset className="h-full p-5 w-screen md:w-3/4 flex flex-col md:mx-auto gap-11 border border-sky-500 text-white">
         <h1 className=" text-4xl text-start border border-yellow-200 p-2 ">
           Sign In
         </h1>

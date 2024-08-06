@@ -18,7 +18,7 @@ const Form = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex  md:flex-row gap-4 order-3 w-full bg-inherit mb-20   "
+      className="flex flex-col md:flex-row text-black gap-4 order-3 w-full bg-inherit mb-20   "
     >
       <input
         type="text"
@@ -28,7 +28,7 @@ const Form = () => {
       />
       <SubmitButton
         hoverColor="dark_pastel_green"
-        className="bg-space_cadet text-lg text-anti-flash_white-900 p-2.5 w-[220px] sm:w-auto"
+        className="bg-space_cadet text-lg text-anti-flash_white-900 p-2.5 w-[220px] mx-auto sm:w-auto"
         value="Send"
       />
     </form>

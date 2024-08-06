@@ -10,7 +10,7 @@ import Logo from "../../../assets/logo.png";
 const Login = () => {
   return (
     <div className="grid grid-cols-login_layout h-screen">
-      <div className=" relative w-full h-full bg-space_cadet-700 flex justify-center items-center">
+      <div className=" relative w-full h-full hidden  bg-space_cadet-700 md:flex justify-center items-center">
         <div className="absolute top-[150px] right-12 rounded-full bg-space_cadet-900 flex items-center gap-4 p-4">
           <FaCircleArrowLeft />
           <Link href={"/"}>Return to homepage</Link>

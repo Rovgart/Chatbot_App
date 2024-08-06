@@ -4,12 +4,13 @@ import "./globals.css";
 import Header from "./components/Header/Header";
 import { SettingsContextProvider } from "./store/SettingsContext";
 import AuthProvider from "./store/Auth/AuthProvider";
+import UIStateProvider from "./store/UIStateProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Imaginative",
-  description: "",
+  title: "DialogueFlow",
+  description: "Chat Smarter, Connect Faster",
 };
 
 export default async function RootLayout({
@@ -24,8 +25,10 @@ export default async function RootLayout({
       <body className={`${inter.className} bg-payne_gray-100`}>
         <AuthProvider>
           <SettingsContextProvider>
-            {children}
-            {modal}
+            <UIStateProvider>
+              {children}
+              {modal}
+            </UIStateProvider>
           </SettingsContextProvider>
         </AuthProvider>
       </body>

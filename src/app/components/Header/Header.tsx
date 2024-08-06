@@ -5,19 +5,21 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import ChatbotLogo from "../../../../assets/logo.png";
 import Image from "next/image";
+import { useUI } from "@/app/store/UIStateProvider";
 function Header() {
   const [opened, setIsOpened] = useState(false);
   const hamburgerHandler = () => {
     setIsOpened((prev) => !prev);
   };
 
+  const { openMobileMenuHandler, uiState } = useUI();
   return (
     <>
-      <header className=" z-[999] p-4  flex items-center justify-around bg-payne_gray-100   fixed top-0 w-full h-[12vh]">
+      <header className=" z-[999] border border-green-500 p-4  flex items-center justify-around bg-payne_gray-100   fixed top-0 w-full h-[12vh]">
         {/* Logo */}
-        <picture className=" h-full flex items-center  ">
+        <picture className="w-[100px] sm:w-[130px] flex items-center border border-yellow-300 p-2  ">
           <Image
-            className="w-full h-full object-cover"
+            className="w-full h-full max-w-full max-h-full object-cover"
             src={ChatbotLogo}
             alt="logo"
           />
@@ -45,10 +47,11 @@ function Header() {
           }
         </nav>
         <GiHamburgerMenu
-          onClick={hamburgerHandler}
-          className="text-anti-flash_white text-4xl md:hidden block"
+          onClick={openMobileMenuHandler}
+          className="text-anti-flash_white md:hidden block"
+          size={30}
         />
-        {opened && <MobileMenu />}
+        {uiState.mobileMenu && <MobileMenu />}
       </header>
     </>
   );

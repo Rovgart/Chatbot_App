@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type User = {
   email: string;
   password: string;
@@ -7,3 +9,14 @@ export type Session = {
   exp: Date;
 };
 export type SignUpResult = () => Promise<Session | undefined>;
+
+export type UIStateContextType = {
+  uiState: {
+    mobileMenu: boolean;
+    settingsCloud: boolean;
+  };
+  closeMobileMenuHandler: () => void;
+  openMobileMenuHandler: () => void;
+  openSettingsCloudHandler: () => void;
+  closeSettingsCloudHandler: () => void;
+};
